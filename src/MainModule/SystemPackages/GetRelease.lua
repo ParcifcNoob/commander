@@ -3,7 +3,7 @@ local Promise = require(script.Parent.Services.Promise)
 
 local function fetch()
     return Promise.new(function(resolve, reject)
-        local status, response = pcall(HttpService.GetAsync, HttpService, "https://api.github.com/repos/va1kio/commander/tags")
+        local status, response = pcall(HttpService.GetAsync, HttpService, "https://api.github.com/repos/7kayoh/commander/tags")
         if status then
             resolve(HttpService:JSONDecode(response))
         else
@@ -23,6 +23,6 @@ return function()
             end
         end
     else
-        return false, HttpService.HttpEnabled
+        return false, response == "Http requests are not enabled. Enable via game settings"
     end
 end

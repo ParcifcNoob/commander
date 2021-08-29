@@ -3,7 +3,7 @@ local HttpService = game:GetService("HttpService")
 
 
 local BACKUP_CREDITS = {}
-local CREDITS_URL = "https://raw.githubusercontent.com/va1kio/commander/main/src/server/SystemPackages/GetCredits/Credits.json"
+local CREDITS_URL = "https://raw.githubusercontent.com/7kayoh/commander/main/src/server/SystemPackages/GetCredits/Credits.json"
 
 function module.get()
 	local success, result = pcall(function()
