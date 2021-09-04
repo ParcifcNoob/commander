@@ -13,7 +13,6 @@ function module.get()
 	if success then
 		return HttpService:JSONDecode(result)
 	else
-		warn("Failed to fetch Credits with error " .. result)
 		return BACKUP_CREDITS
 	end
 end

@@ -23,6 +23,6 @@ return function()
             end
         end
     else
-        return false, response == "Http requests are not enabled. Enable via game settings"
+        return false, response ~= "Http requests are not enabled. Enable via game settings"
     end
 end
