@@ -225,6 +225,7 @@ return function(Settings, CustomPackages, Stylesheets)
 
 				remotes.Event:FireClient(Client, "fetchCommands", "n/a", packagesButtonsFiltered)
 				remotes.Event:FireClient(Client, "fetchAdminLevel", "n/a", systemPackages.API.getAdminLevel(Client.UserId))
+				systemPackages.API.Players.message(Client, "System", "Welcome to Commander " .. systemPackages.Settings.Version[1] .. ", you are now authorized (ranked as " .. systemPackages.API.getAdminLevel(Client.UserId) .. ")\n\n Open the panel either with the keybind or the Command button at the top right hand corner.", 30)
 			elseif Type == "getSettings" then
 				return systemPackages.Settings
 			elseif Type == "getLocale" then
