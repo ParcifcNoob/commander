@@ -103,7 +103,7 @@ return function(Settings, CustomPackages, Stylesheets)
 		systemPackages.API.PermissionTable = permissionTable
 		systemPackages.API.DisableTable = disableTable
 		systemPackages.Settings.Credits = systemPackages.GetCredits()
-		systemPackages.Settings.Version = {"1.4.0", "1.4.0 (Official Build)", "Lilium"}
+		systemPackages.Settings.Version = {"1.4.1", "1.4.1 (Official Build)", "Lilium"}
 
 		--@OVERRIDE
 		systemPackages.Settings.LatestVersion, systemPackages.Settings.IsHttpEnabled = systemPackages.GetRelease()
