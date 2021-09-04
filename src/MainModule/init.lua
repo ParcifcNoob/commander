@@ -14,7 +14,7 @@ return function(Settings, CustomPackages, Stylesheets)
 	Stylesheets:Destroy()
 	--
 	
-	warn("Commander; Listening to clients")
+	warn("Commander; Preparing...")
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 	local CollectionService = game:GetService("CollectionService")
 	local Players = game:GetService("Players")
