@@ -16,7 +16,7 @@
 	## FAQs
 	
 	Q: How to add a new admin?
-	A: You can refer to our documentation (https://7kayoh.github.io/commander-site/docs/#/)
+	A: You can refer to our documentation (https://commander-4.vercel.app)
 	
 	Q: How can I change the theme colour?
 	A: You can change it by modifying the Accent settings below
@@ -32,7 +32,10 @@
 local module = {}
 
 module.Admins = {
-	["nana_kon"] = "Owner"
+	["7kayoh"] = "Owner",
+	-- [12312322] = "Moderator", -- user with User Id 12312322 will get Moderator,
+	-- ["Roblox"] = "Moderator", -- user with name Roblox will get Moderator
+	-- for more information such as group ranking, refer the documentation
 }
 
 module.Permissions = {
