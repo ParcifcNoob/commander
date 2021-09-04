@@ -280,18 +280,11 @@ return function(Settings, CustomPackages, Stylesheets)
 			UI.ResetOnSpawn = false
 			UI.Scripts.Core.Disabled = false
 			UI.Parent = Client.PlayerGui
-			systemPackages.API.Players.notify(Client, "System", "Press the \"" .. systemPackages.Settings.UI.Keybind.Name .. "\" or click the Command icon on the top to toggle Commander")
-			if systemPackages.Settings.LatestVersion ~= false and systemPackages.Settings.LatestVersion ~= systemPackages.Settings.Version[1] then
-				systemPackages.API.Players.hint(Client, "System", "Commander is outdated, latest version available is " .. systemPackages.Settings.LatestVersion, 5)
-			elseif systemPackages.Settings.LatestVersion == false and systemPackages.Settings.IsHttpEnabled then
-				systemPackages.API.Players.hint(Client, "System", "Unable to fetch latest version info for Commander", 5)
-			elseif not systemPackages.Settings.IsHttpEnabled then
-				systemPackages.API.Players.hint(Client, "System", "HttpService is not enabled, functions are limited", 5)
+			if systemPackages.Settings.LatestVersion and systemPackages.Settings.LatestVersion ~= systemPackages.Settings.Version[1] then
+				systemPackages.API.Players.hint(Client, "System", "This Commander version is outdated (latest avail: " .. systemPackages.Settings.LatestVersion .. ")", 5)
+			elseif not systemPackages.Settings.LatestVersion or not systemPackages.Settings.IsHttpEnabled then
+				systemPackages.API.Players.hint(Client, "System", "Commander can not check the latest version available" .. (not systemPackages.Settings.IsHttpEnabled and " (HTTP_NOT_ENABLED)" or ""), 5)
 			end
-		end
-
-		if not systemPackages.Settings.Misc.DisableCredits then
-			systemPackages.API.Players.hint(Client, "System", "This game uses Commander 4 from Evo", 5)
 		end
 	end
 
@@ -305,4 +298,6 @@ return function(Settings, CustomPackages, Stylesheets)
 			setupUIForPlayer(v)
 		end
 	end
+	
+	warn("Commander; Loaded!")
 end
