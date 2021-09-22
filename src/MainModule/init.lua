@@ -103,12 +103,19 @@ return function(Settings, CustomPackages, Stylesheets)
 		systemPackages.API.PermissionTable = permissionTable
 		systemPackages.API.DisableTable = disableTable
 		systemPackages.Settings.Credits = systemPackages.GetCredits()
-		systemPackages.Settings.Version = {"1.4.1", "1.4.1 (Official Build)", "Lilium"}
+		systemPackages.Settings.Version = {"1.4.2", "1.4.2 (Official Build)", "Lilium"}
 
 		--@OVERRIDE
 		systemPackages.Settings.LatestVersion, systemPackages.Settings.IsHttpEnabled = systemPackages.GetRelease()
 		systemPackages.Settings.UI.AlertSound = systemPackages.Settings.UI.AlertSound or 6518811702
 		systemPackages.Settings.Misc.DataStoresKey = systemPackages.Settings.Misc.DataStoresKey or {}
+		if systemPackages.Settings.Misc.AutoCreatorAdmin and systemPackages.Settings.Misc.AutoCreatorAdminTo then
+			if systemPackages.Settings.Permissions[systemPackages.Settings.Misc.AutoCreatorAdminTo] then
+				if game.CreatorType == Enum.CreatorType.User then
+					systemPackages.Admins[game.CreatorId] == systemPackages.Settings.Misc.AutoCreatorAdminTo
+				end
+			end
+		end
 		--
 
 		for i,v in pairs(systemPackages) do
