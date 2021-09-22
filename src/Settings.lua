@@ -85,6 +85,7 @@ module.UI = {
 
 module.Misc = {
 	["DisableCredits"] = false,
+	-- v this only works outside Studio.
 	["AutoCreatorAdmin"] = true, -- when enabled, this automatically grants the game owner admin
 	["AutoCreatorAdminTo"] = "Owner" -- configure this if needed
 }
