@@ -80,11 +80,13 @@ module.Permissions = {
 module.UI = {
 	["Accent"] = Color3.fromRGB(64, 157, 130),
 	["Keybind"] = Enum.KeyCode.Semicolon,
-	["Theme"] = "Material"
+	["Theme"] = "Minimal Dark"
 }
 
 module.Misc = {
-	["DisableCredits"] = false
+	["DisableCredits"] = false,
+	["AutoCreatorAdmin"] = true, -- when enabled, this automatically grants the game owner admin
+	["AutoCreatorAdminTo"] = "Owner" -- configure this if needed
 }
 
 return module
