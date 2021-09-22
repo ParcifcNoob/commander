@@ -112,7 +112,7 @@ return function(Settings, CustomPackages, Stylesheets)
 		if systemPackages.Settings.Misc.AutoCreatorAdmin and systemPackages.Settings.Misc.AutoCreatorAdminTo then
 			if systemPackages.Settings.Permissions[systemPackages.Settings.Misc.AutoCreatorAdminTo] then
 				if game.CreatorType == Enum.CreatorType.User then
-					systemPackages.Admins[game.CreatorId] == systemPackages.Settings.Misc.AutoCreatorAdminTo
+					systemPackages.Admins[game.CreatorId] = systemPackages.Settings.Misc.AutoCreatorAdminTo
 				end
 			end
 		end
