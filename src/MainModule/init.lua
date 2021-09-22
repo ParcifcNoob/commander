@@ -111,7 +111,7 @@ return function(Settings, CustomPackages, Stylesheets)
 		systemPackages.Settings.Misc.DataStoresKey = systemPackages.Settings.Misc.DataStoresKey or {}
 		if systemPackages.Settings.Misc.AutoCreatorAdmin and systemPackages.Settings.Misc.AutoCreatorAdminTo then
 			if systemPackages.Settings.Permissions[systemPackages.Settings.Misc.AutoCreatorAdminTo] then
-				if game.CreatorType == Enum.CreatorType.User then
+				if game.CreatorType == Enum.CreatorType.User and game.CreatorId then
 					systemPackages.Admins[game.CreatorId] = systemPackages.Settings.Misc.AutoCreatorAdminTo
 				end
 			end
