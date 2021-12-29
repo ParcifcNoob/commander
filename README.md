@@ -1,6 +1,3 @@
-⚠️ Under construction!
-All source code hosted under this repository is under a large recode, if you plan to install Commander for your game, find the Releases section for the latest source code, or use the loader.
-
 # Commander
 
 [![CI](https://github.com/7kayoh/commander/actions/workflows/deploy.yml/badge.svg)](https://github.com/7kayoh/commander/actions/workflows/deploy.yml)
