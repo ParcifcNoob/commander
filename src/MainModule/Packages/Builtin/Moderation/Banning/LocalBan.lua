@@ -5,7 +5,7 @@ module.Name = "Local Ban"
 module.Description = "Bans a player from the game locally"
 module.Location = "Player"
 
-function module.Execute(Client: player?, Type: string, Attachment)
+function module.Execute(Client: Player?, Type: string, Attachment)
     if Type == "command" then
         local possiblyUserId = module.API.Players.getUserIdFromName(Attachment)
         if type(possiblyUserId) == "string" or module.API.Players.getAdminStatus(possiblyUserId) then
@@ -40,7 +40,7 @@ end
 
 function module.Init()
     module.Shared.LocalBans = module.Shared.LocalBans or {}
-    module.API.Players.listenToPlayerAdded(function(Player: player)
+    module.API.Players.listenToPlayerAdded(function(Player: Player)
         if module.Shared.LocalBans[Player.UserId] then
             local data = module.Shared.LocalBans[Player.UserId]
             if data.End == "PERM" then

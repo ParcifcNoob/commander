@@ -5,7 +5,7 @@ module.Name = "Unban"
 module.Description = "Unbans a player from the game globally, or locally"
 module.Location = "Player"
 
-function module.Execute(Client: player?, Type: string, Attachment)
+function module.Execute(Client: Player?, Type: string, Attachment)
     if Type == "command" then
         local possiblyUserId = module.API.Players.getUserIdFromName(Attachment)
         if type(possiblyUserId) == "string" then

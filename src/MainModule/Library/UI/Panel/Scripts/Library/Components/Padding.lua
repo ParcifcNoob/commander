@@ -1,6 +1,6 @@
 local module = {}
 
-module.new = function(Parent: instance)
+module.new = function(Parent: Instance)
 	local Comp = Instance.new("UIPadding")
 	local t = {
 		["Left"] = UDim.new(0, 0),

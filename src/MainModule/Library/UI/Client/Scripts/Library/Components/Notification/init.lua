@@ -8,7 +8,7 @@ local tween = require(modules.Tween)
 local fade = require(modules.Fade)
 local tweeninfo = require(modules.TweenInfo)
 
-function module.new(from: string, content: string, parent: instance)
+function module.new(from: string, content: string, parent: Instance)
 	local component = script.Comp:Clone()
 	component.Name = script.Name
 	component.Container.Top.Title.Text = from

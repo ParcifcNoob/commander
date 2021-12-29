@@ -1,6 +1,6 @@
 local module = {}
 
-module.new = function(Name: string, Title: string?, Parent: instance)
+module.new = function(Name: string, Title: string?, Parent: Instance)
 	local Comp = script.Comp:Clone()
 	Comp.Name = Name
 	Comp.Container.Title.TextColor3 = module.Latte.Modules.Stylesheet.SeparatedList.TitleColor

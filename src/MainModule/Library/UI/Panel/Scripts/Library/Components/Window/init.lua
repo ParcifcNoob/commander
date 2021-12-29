@@ -1,7 +1,7 @@
 local module = {}
 
 -- Style window object.
-local function stylise(UI: guiobject)
+local function stylise(UI: GuiObject)
 	local Stylesheet = module.Latte.Modules.Stylesheet
 	UI.Container.BackgroundColor3 = Stylesheet.Window.BackgroundColor
 	UI.Container.UICorner.CornerRadius = Stylesheet.CornerData.Window
@@ -31,7 +31,7 @@ local function stylise(UI: guiobject)
 end
 
 -- Populate menu container.
-local function giveMenu(Menu: guiobject)
+local function giveMenu(Menu: GuiObject)
 	local Latte = module.Latte
 
 	local t = {}
@@ -91,7 +91,7 @@ local function giveMenu(Menu: guiobject)
 	return t
 end
 
-module.new = function(Name: string, Title: string?, Size: Vector2?, ShowMenu: Boolean?, Parent: instance)
+module.new = function(Name: string, Title: string?, Size: Vector2?, ShowMenu: boolean?, Parent: Instance)
 	local Latte = module.Latte
 	local Stylesheet = Latte.Modules.Stylesheet
 	local comp = script.Comp:Clone()

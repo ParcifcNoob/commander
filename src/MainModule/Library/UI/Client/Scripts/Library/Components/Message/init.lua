@@ -8,7 +8,7 @@ local fade = require(modules.Fade)
 local tweeninfo = require(modules.TweenInfo)
 local defaultDuration = 10
 
-function module.new(from: string, content: string, duration: number?, parent: instance)
+function module.new(from: string, content: string, duration: number?, parent: Instance)
 	local component = script.Comp:Clone()
 	component.Name = script.Name
 	component.Top.Title.Text = "<font face=\"Gotham\" color=\"rgb(200,200,200)\">Message from </font>" .. from

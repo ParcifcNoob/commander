@@ -64,7 +64,7 @@ local function makeBindable(func)
 	return Bindable
 end
 
-function API.Players.sendModal(Player: player, Title: string?): bindableevent
+function API.Players.sendModal(Player: Player, Title: string?): BindableEvent
 	local Bindable = Instance.new("BindableEvent")
 	local GUID = HttpService:GenerateGUID()
 	Bindable.Name = GUID
@@ -74,11 +74,11 @@ function API.Players.sendModal(Player: player, Title: string?): bindableevent
 	return Bindable
 end
 
-function API.Players.sendList(Player: player, Title: string, Attachment)
+function API.Players.sendList(Player: Player, Title: string, Attachment)
 	module.Remotes.Event:FireClient(Player, "newList", Title, Attachment)
 end
 
-function API.Players.GetPlayersFromNameSelector(Client: player, Player: string)
+function API.Players.GetPlayersFromNameSelector(Client: Player, Player: string)
 	local playerList = {}
 	Player = string.lower(Player)
 	local clientAdminLevel = API.Players.getAdminLevel(Client.UserId)
@@ -148,7 +148,7 @@ function API.Players.GetPlayersFromNameSelector(Client: player, Player: string)
 	return #playerList > 0 and playerList or nil
 end
 
-function API.Players.executeWithPrefix(Client: player, Player: string, Callback)
+function API.Players.executeWithPrefix(Client: Player, Player: string, Callback)
 	Player = string.lower(Player)
 	local clientAdminLevel = API.Players.getAdminLevel(Client.UserId)
 
@@ -214,7 +214,7 @@ function API.Players.listenToPlayerAdded(Function)
 	end 
 end
 
-function API.Players.filterString(From: player, Content: string)
+function API.Players.filterString(From: Player, Content: string)
 	if not utf8.len(Content) then -- Prevents invalid UTF8 from being sent to oddly behaving UTF8 from being sent
 		return false, ""
 	end
@@ -229,7 +229,7 @@ function API.Players.filterString(From: player, Content: string)
 	return success, result
 end
 
-function API.Players.message(To: player|string, From: string, Content: string, Duration: number?, Sound: number?)
+function API.Players.message(To: Player|string, From: string, Content: string, Duration: number?, Sound: number?)
 	local attachment = {["From"] = From, ["Content"] = Content, ["Duration"] = Duration, ["Sound"] = Sound or module.Settings.UI.AlertSound}
 	if tostring(To):lower() == "all" then
 		module.Remotes.Event:FireAllClients("newMessage", "", attachment)
@@ -238,7 +238,7 @@ function API.Players.message(To: player|string, From: string, Content: string, D
 	end
 end
 
-function API.Players.hint(To: player|string, From: string, Content: string, Duration: number?, Sound: number?)
+function API.Players.hint(To: Player|string, From: string, Content: string, Duration: number?, Sound: number?)
 	local attachment = {["From"] = From, ["Content"] = Content, ["Duration"] = Duration, ["Sound"] = Sound or module.Settings.UI.AlertSound}
 	if tostring(To):lower() == "all" then
 		module.Remotes.Event:FireAllClients("newHint", "", attachment)
@@ -247,7 +247,7 @@ function API.Players.hint(To: player|string, From: string, Content: string, Dura
 	end
 end
 
-function API.Players.notify(To: player|string, From: string, Content: string, Sound: number?)
+function API.Players.notify(To: Player|string, From: string, Content: string, Sound: number?)
 	local attachment = {["From"] = From, ["Content"] = Content, ["Sound"] = Sound or module.Settings.UI.AlertSound}
 	if tostring(To):lower() == "all" then
 		module.Remotes.Event:FireAllClients("newNotify", "", attachment)
@@ -256,7 +256,7 @@ function API.Players.notify(To: player|string, From: string, Content: string, So
 	end
 end
 
-function API.Players.notifyWithAction(To: player|string, Type, From: string, Content: string, Sound: number?)
+function API.Players.notifyWithAction(To: Player|string, Type, From: string, Content: string, Sound: number?)
 	local Bindable = Instance.new("BindableEvent")
 	local GUID = HttpService:GenerateGUID()
 	local attachment = {["From"] = From, ["Content"] = Content, ["Sound"] = Sound or module.Settings.UI.AlertSound}
@@ -388,13 +388,13 @@ function API.Players.getAvailableAdmins()
 	return availableAdmins
 end
 
-function API.Players.getCharacter(Player: player)
+function API.Players.getCharacter(Player: Player)
 	if Player and Player.Character and Player.Character.PrimaryPart and Player.Character:FindFirstChildOfClass("Humanoid") then
 		return Player.Character
 	end
 end
 
-function API.Players.setTransparency(Character: model, Value: number)
+function API.Players.setTransparency(Character: Model, Value: number)
 	for _, object in ipairs(Character:GetDescendants()) do
 		if object:IsA("BasePart") or object:IsA("Decal")or object:IsA("Texture") then
 			object.Transparency = Value
@@ -429,7 +429,7 @@ function API.Core.getDataStore(Name: string, Scope: string?)
 		end)
 	end
 
-	function object:increment(Key: string, Delta: number, UserIds: array, Options: instance)
+	function object:increment(Key: string, Delta: number, UserIds: {number}, Options: Instance)
 		return module.Services.Promise.new(function(Resolve, Reject)
 			local status, response = pcall(self._object.IncrementAsync, self._object, Key, Delta, UserIds, Options)
 
@@ -441,7 +441,7 @@ function API.Core.getDataStore(Name: string, Scope: string?)
 		end)
 	end
 
-	function object:update(Key: string, Transformer: (string) -> void)
+	function object:update(Key: string, Transformer)
 		return module.Services.Promise.new(function(Resolve, Reject)
 			local status, response = pcall(self._object.RemoveAsync, self._object, Key, Transformer)
 

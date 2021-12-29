@@ -1,7 +1,7 @@
 local module = {}
 
 
-module.new = function(Title: string, Parent: instance)
+module.new = function(Title: string, Parent: Instance)
 	local Stylesheet = module.Latte.Modules.Stylesheet
 	local Trigger = module.Latte.Modules.Trigger
 	local RoundButton = module.Latte.Components.RoundButton

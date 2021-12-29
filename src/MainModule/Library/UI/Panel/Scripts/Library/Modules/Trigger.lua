@@ -1,10 +1,6 @@
 local module = {}
 
-local checkMouseInBound = function(Mouse: mouse, Object: guiobject)
-	return Mouse.X >= Object.AbsolutePosition.X and Mouse.X <= Object.AbsolutePosition.X+Object.AbsoluteSize.X and Mouse.Y >= Object.AbsolutePosition.Y and Mouse.Y <= Object.AbsolutePosition.Y+Object.AbsoluteSize.Y
-end
-
-module.new = function(Parent: guiobject, Reaction: (string) -> void, ZIndex: number?, UseInputEvents: boolean?): rbxscriptsignal
+module.new = function(Parent: GuiObject, Reaction, ZIndex: number?, UseInputEvents: boolean?): RBXScriptSignal
 	local Button = Instance.new("TextButton")
 	local Bindable = Instance.new("BindableEvent", Button)
 	Button.Name = "Trigger"
@@ -13,24 +9,24 @@ module.new = function(Parent: guiobject, Reaction: (string) -> void, ZIndex: num
 	Button.BackgroundTransparency = 1
 	Button.Text = ""
 
-	Button.InputBegan:Connect(function(InputObject: inputobject)
+	Button.InputBegan:Connect(function(InputObject)
 		if InputObject.UserInputType == Enum.UserInputType.Touch or InputObject.UserInputType == Enum.UserInputType.MouseMovement then
 			Reaction(Parent, "Hover")
 		end
 	end)
 
-	Button.InputEnded:Connect(function(InputObject: inputobject)
+	Button.InputEnded:Connect(function()
 		Reaction(Parent, "Over")
 	end)
 
 	if UseInputEvents then
-		Button.InputBegan:Connect(function(InputObject: inputobject)
+		Button.InputBegan:Connect(function(InputObject)
 			if InputObject.UserInputType == Enum.UserInputType.MouseButton1 then
 				Reaction(Parent, "Hold")
 			end
 		end)
 
-		Button.InputEnded:Connect(function(InputObject: inputobject)
+		Button.InputEnded:Connect(function(InputObject)
 			Bindable:Fire(InputObject.Position.X, InputObject.Position.Y)
 		end)
 	else

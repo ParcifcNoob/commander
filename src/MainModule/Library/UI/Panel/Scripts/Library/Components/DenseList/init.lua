@@ -1,6 +1,6 @@
 local module = {}
 
-module.new = function(Name: string, Parent: instance)
+module.new = function(Name: string, Parent: Instance)
 	local Comp = script.Comp:Clone()
 	Comp.Name = Name
 	Comp.Parent = Parent

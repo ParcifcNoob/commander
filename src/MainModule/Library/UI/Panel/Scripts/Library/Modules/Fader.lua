@@ -10,7 +10,7 @@ local function GetProperty(Object)
 	end
 end
 
-function module.FadeIn(Object: instance, FadeTime: number|nil)
+function module.FadeIn(Object: Instance, FadeTime: number|nil)
 	FadeTime = FadeTime or 0.3
 	local TI = module.Latte.Modules.TweenInfo.Linear(FadeTime)
 	local Table = Object:GetDescendants()
@@ -38,7 +38,7 @@ function module.FadeIn(Object: instance, FadeTime: number|nil)
 	end
 end
 
-function module.FadeOut(Object: instance, FadeTime: number|nil)
+function module.FadeOut(Object: Instance, FadeTime: number|nil)
 	FadeTime = FadeTime or 0.3
 	local TI = module.Latte.Modules.TweenInfo.Linear(FadeTime)
 	local Table = Object:GetDescendants()

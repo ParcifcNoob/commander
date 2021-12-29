@@ -1,10 +1,10 @@
 local module = {}
 
-local reaction = function(Button: guiobject, State: string)
+local reaction = function(Button: GuiObject, State: string)
 	module.Latte.Modules.Animator.Button.Package[State](Button)
 end
 
-module.new = function(Title: string, Description: string, Parent: instance)
+module.new = function(Title: string, Description: string, Parent: Instance)
 	local Stylesheet = module.Latte.Modules.Stylesheet
 	local Trigger = module.Latte.Modules.Trigger
 	local comp = script.Comp:Clone()

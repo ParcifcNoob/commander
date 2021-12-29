@@ -1,6 +1,6 @@
 local module = {}
 
-function module.new(Object: instance, TweenInfo: tweeninfo, Goal)
+function module.new(Object: Instance, TweenInfo: TweenInfo, Goal)
 	local modules = module.Latte.Modules
 	local tweenObject = modules.Services.TweenService:Create(Object, TweenInfo, Goal)
 	tweenObject.Completed:Connect(function()

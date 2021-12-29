@@ -19,7 +19,7 @@ local activeElements = {}
 
 local Bindable = Elements.Event
 
-local function playAudio(Id: number|string, Volume: number?, Parent: instance): sound
+local function playAudio(Id: number|string, Volume: number?, Parent: Instance): Sound
 	local audio = Instance.new("Sound")
 	audio.SoundId = "rbxassetid://" .. Id
 	audio.Volume = Volume or 1

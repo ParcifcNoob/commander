@@ -7,7 +7,7 @@ local tween = require(modules.Tween)
 local fade = require(modules.Fade)
 local tweeninfo = require(modules.TweenInfo)
 
-local function playAudio(Id: number|string, Volume: number?, Parent: instance): sound
+local function playAudio(Id: number|string, Volume: number?, Parent: Instance): Sound
 	local audio = Instance.new("Sound")
 	audio.SoundId = "rbxassetid://" .. Id
 	audio.Volume = Volume or 1
@@ -20,7 +20,7 @@ local function playAudio(Id: number|string, Volume: number?, Parent: instance): 
 	return audio
 end
 
-function module.new(from: string, parent: instance)
+function module.new(from: string, parent: Instance)
 	local component = script.Comp:Clone()
 	component.Name = script.Name
 	component.Container.Top.Title.Text = "<font face=\"Gotham\" color=\"rgb(200,200,200)\">Replying to </font>" .. from

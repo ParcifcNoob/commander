@@ -1,6 +1,6 @@
 local module = {}
 
-module.new = function(Title: string, Placeholder: string, Parent: instance)
+module.new = function(Title: string, Placeholder: string, Parent: Instance)
 	local Stylesheet = module.Latte.Modules.Stylesheet
 	local RoundButton = module.Latte.Components.RoundButton
 	local comp = script.Comp:Clone()

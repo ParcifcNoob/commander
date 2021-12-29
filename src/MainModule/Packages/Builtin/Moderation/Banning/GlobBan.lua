@@ -5,7 +5,7 @@ module.Name = "Global Ban"
 module.Description = "Bans a player from the game globally"
 module.Location = "Player"
 
-function module.Execute(Client: player?, Type: string, Attachment)
+function module.Execute(Client: Player?, Type: string, Attachment)
     if Type == "command" then
         local possiblyUserId = module.API.Players.getUserIdFromName(Attachment)
         if type(possiblyUserId) == "string" or module.API.Players.getAdminStatus(possiblyUserId) then
@@ -42,7 +42,7 @@ end
 
 function module.Init()
     private.DataStore = module.Services.DataStoreService:GetDataStore(module.Settings.Misc.DataStoresKey.Ban or "commander.bans")
-    module.API.Players.listenToPlayerAdded(function(Player: player)
+    module.API.Players.listenToPlayerAdded(function(Player: Player)
         local ok, data = pcall(private.DataStore.GetAsync, private.DataStore, "data")
         if not ok then
             Player:Kick("Something went wrong while trying to fetch data, retry later")

@@ -1,6 +1,6 @@
 local module = {}
 
-local reaction = function(Button: guiobject, State: string)
+local reaction = function(Button: GuiObject, State: string)
 	module.Latte.Modules.Animator.Button.Menu[State](Button)
 end
 
@@ -12,7 +12,7 @@ local returnItemOnStatement = function(Result: boolean, ItemWhenTrue: any, ItemW
 	end
 end
 
-module.new = function(Name: string, Text: string?, Parent: instance, Callback: (string) -> void)
+module.new = function(Name: string, Text: string?, Parent: Instance, Callback)
 	local Stylesheet = module.Latte.Modules.Stylesheet
 	local Comp = script.Comp:Clone()
 	local t = {}
