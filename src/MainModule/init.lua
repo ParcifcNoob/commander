@@ -1,3 +1,7 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local CollectionService = game:GetService("CollectionService")
+local Players = game:GetService("Players")
+
 return function(Settings, CustomPackages, Stylesheets)
 	
 	-- BUILDER
@@ -15,12 +19,7 @@ return function(Settings, CustomPackages, Stylesheets)
 	--
 	
 	warn("Commander; Preparing...")
-	local ReplicatedStorage = game:GetService("ReplicatedStorage")
-	local CollectionService = game:GetService("CollectionService")
-	local Players = game:GetService("Players")
-
 	local remotefolder = Instance.new("Folder")
-	local availableAdmins = 0 -- In order to reduce server stress, we are caching this value so less API calls will be needed to send the available admins number back to player
 
 	local isPlayerAddedFired = false
 	local remotes = {
@@ -36,17 +35,17 @@ return function(Settings, CustomPackages, Stylesheets)
 	remotefolder.Parent = ReplicatedStorage
 	remotefolder = nil
 
-	for i,v in pairs(script.Packages:GetDescendants()) do
-		if v:IsA("ModuleScript") then
+	for _, package in pairs(script.Packages:GetDescendants()) do
+		if package:IsA("ModuleScript") then
 			pcall(function()
-				local mod = require(v)
+				local mod = require(package)
 				if mod.Execute and mod.Name and mod.Description and mod.Location then
 					packagesButtons[#packagesButtons + 1] = {
 						Name = mod.Name,
 						Protocol = mod.Name,
 						Description = mod.Description,
 						Location = mod.Location,
-						PackageId = v.Name
+						PackageId = package.Name
 					}
 				end
 			end)
@@ -90,11 +89,11 @@ return function(Settings, CustomPackages, Stylesheets)
 	end
 
 	local function loadPackages()
-		for i,v in pairs(script.SystemPackages:GetChildren()) do
-			if v:IsA("ModuleScript") then
-				local name = v.Name
-				v = require(v)
-				systemPackages[name] = v
+		for _, package in pairs(script.SystemPackages:GetChildren()) do
+			if package:IsA("ModuleScript") then
+				local name = package.Name
+				package = require(package)
+				systemPackages[name] = package
 			end
 		end
 
@@ -103,7 +102,7 @@ return function(Settings, CustomPackages, Stylesheets)
 		systemPackages.API.PermissionTable = permissionTable
 		systemPackages.API.DisableTable = disableTable
 		systemPackages.Settings.Credits = systemPackages.GetCredits()
-		systemPackages.Settings.Version = {"1.4.2", "1.4.2 (Official Build)", "Lilium"}
+		systemPackages.Settings.Version = {"1.4.3", "1.4.3 (Official Build)", "Lilium"}
 
 		--@OVERRIDE
 		systemPackages.Settings.LatestVersion, systemPackages.Settings.IsHttpEnabled = systemPackages.GetRelease()
@@ -127,7 +126,7 @@ return function(Settings, CustomPackages, Stylesheets)
 			end
 		end
 
-		for i,v in pairs(script.Packages:GetDescendants()) do
+		for _,v in pairs(script.Packages:GetDescendants()) do
 			if v:IsA("ModuleScript") and not v.Parent:IsA("ModuleScript") then
 				local ok, response = pcall(function()
 					local mod = require(v)
