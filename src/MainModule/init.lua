@@ -3,7 +3,7 @@ local CollectionService = game:GetService("CollectionService")
 local Players = game:GetService("Players")
 
 return function(Settings, CustomPackages, Stylesheets)
-	
+
 	-- BUILDER
 	script.SystemPackages.Settings:Destroy()
 	Settings.Name = "Settings"
@@ -17,7 +17,7 @@ return function(Settings, CustomPackages, Stylesheets)
 	end
 	Stylesheets:Destroy()
 	--
-	
+
 	warn("Commander; Preparing...")
 	local remotefolder = Instance.new("Folder")
 
@@ -52,6 +52,25 @@ return function(Settings, CustomPackages, Stylesheets)
 		end
 	end
 
+	-- Added by TurtleIdiot: used to recursively navigate inheritance when actually building permission tables
+	local function buildTempPermissions(permissions, group, groupconfig)
+		local temptable = {}
+		if groupconfig["Inherits"] and permissions[groupconfig["Inherits"]] and permissions[groupconfig["Inherits"]]["Permissions"] then
+			for _,perm in ipairs(permissions[groupconfig["Inherits"]]["Permissions"]) do
+				table.insert(temptable, perm)
+			end
+			local inherited = buildTempPermissions(permissions, groupconfig["Inherits"], permissions[groupconfig["Inherits"]])
+			if inherited ~= false then
+				for _, perm in ipairs(inherited) do
+					table.insert(temptable, perm)
+				end
+			end
+			return temptable
+		else
+			return false
+		end
+	end
+
 	-- Builds permission tables to allow indexing for permissions.
 	local function buildPermissionTables()
 		local permissions = systemPackages.Settings["Permissions"]
@@ -66,8 +85,11 @@ return function(Settings, CustomPackages, Stylesheets)
 			end
 
 			if v["Inherits"] and permissions[v["Inherits"]] and permissions[v["Inherits"]]["Permissions"] then
-				for _,perm in ipairs(permissions[v["Inherits"]]["Permissions"]) do
-					permissionTable[i][perm] = true
+				local inherited = buildTempPermissions(permissions, i, v)
+				if inherited ~= false then
+					for _,perm in ipairs(inherited) do
+						permissionTable[i][perm] = true
+					end
 				end
 			end
 		end
@@ -304,6 +326,6 @@ return function(Settings, CustomPackages, Stylesheets)
 			setupUIForPlayer(v)
 		end
 	end
-	
+
 	warn("Commander; Loaded!")
 end
