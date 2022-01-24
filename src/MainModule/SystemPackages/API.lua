@@ -7,7 +7,6 @@ local CollectionService = game:GetService("CollectionService")
 local GroupService = game:GetService("GroupService")
 
 -- TODO: Update group cache over interval?
-local isFirstTime = true
 local API = {}
 local globalAPI
 local t = {}
@@ -37,14 +36,14 @@ API.Players = {
 }
 API.Core = {}
 
-local function containsDisallowed(tbl)
+local function containsDisallowed(tbl: {any})
 	local allowedTypes = {"table", "function", "thread"}
 	for _, value in ipairs(tbl) do
 		return typeof(value) == "userdata" or allowedTypes[type(value)] ~= nil
 	end
 end
 
-local function sandboxFunc(func)
+local function sandboxFunc(func: (any) -> (any))
 	local function returnResults(success, ...)
 		return success and (not containsDisallowed({...}) and ... or "API returned disallowed arguments. Vulnerability?") or "An error occured."
 	end
@@ -58,7 +57,7 @@ local function sandboxFunc(func)
 	end
 end
 
-local function makeBindable(func)
+local function makeBindable(func: (any) -> (any)): BindableEvent
 	local Bindable = Instance.new("BindableFunction")
 	Bindable.OnInvoke = not table.find(module, func) and func or sandboxFunc(func)
 	return Bindable
@@ -78,7 +77,7 @@ function API.Players.sendList(Player: Player, Title: string, Attachment)
 	module.Remotes.Event:FireClient(Player, "newList", Title, Attachment)
 end
 
-function API.Players.GetPlayersFromNameSelector(Client: Player, Player: string)
+function API.Players.GetPlayersFromNameSelector(Client: Player, Player: string): {Player}?
 	local playerList = {}
 	Player = string.lower(Player)
 	local clientAdminLevel = API.Players.getAdminLevel(Client.UserId)
@@ -148,7 +147,7 @@ function API.Players.GetPlayersFromNameSelector(Client: Player, Player: string)
 	return #playerList > 0 and playerList or nil
 end
 
-function API.Players.executeWithPrefix(Client: Player, Player: string, Callback)
+function API.Players.executeWithPrefix(Client: Player, Player: string, Callback: (player: Player) -> (any))
 	Player = string.lower(Player)
 	local clientAdminLevel = API.Players.getAdminLevel(Client.UserId)
 
@@ -170,7 +169,7 @@ function API.Players.executeWithPrefix(Client: Player, Player: string, Callback)
 	end
 end
 
-function API.Players.getPlayerByName(Player: string)
+function API.Players.getPlayerByName(Player: string): Player
 	for _, v in ipairs(Players:GetPlayers()) do
 		if string.lower(v.Name) == string.lower(Player) then
 			return v
@@ -178,7 +177,7 @@ function API.Players.getPlayerByName(Player: string)
 	end
 end
 
-function API.Players.getPlayerByUserId(Player: number)
+function API.Players.getPlayerByUserId(Player: number): Player
 	for _, v in ipairs(Players:GetPlayers()) do
 		if v.UserId == Player then
 			return v
@@ -186,7 +185,7 @@ function API.Players.getPlayerByUserId(Player: number)
 	end
 end
 
-function API.Players.getPlayerByNamePartial(Player: string)
+function API.Players.getPlayerByNamePartial(Player: string): Player
 	for _, v in ipairs(Players:GetPlayers()) do
 		if string.lower(string.sub(v.Name, 1, #Player)) == string.lower(Player) then
 			return v;
@@ -194,7 +193,7 @@ function API.Players.getPlayerByNamePartial(Player: string)
 	end
 end
 
-function API.Players.getPlayerWithFilter(filter: (Instance) -> boolean)
+function API.Players.getPlayerWithFilter(filter: (Instance) -> boolean): Player
 	for _, v in ipairs(Players:GetPlayers()) do
 		if filter(v) == true then
 			return v;
@@ -202,8 +201,8 @@ function API.Players.getPlayerWithFilter(filter: (Instance) -> boolean)
 	end
 end
 
-function API.Players.getUserIdFromName(Player: string)
-	local success, result = pcall(Players.GetUserIdFromNameAsync, Players, Player)
+function API.Players.getUserIdFromName(Player: string): number
+	local _, result = pcall(Players.GetUserIdFromNameAsync, Players, Player)
 	return result
 end
 
@@ -214,7 +213,7 @@ function API.Players.listenToPlayerAdded(Function)
 	end 
 end
 
-function API.Players.filterString(From: Player, Content: string)
+function API.Players.filterString(From: Player, Content: string): (boolean, string)
 	if not utf8.len(Content) then -- Prevents invalid UTF8 from being sent to oddly behaving UTF8 from being sent
 		return false, ""
 	end
@@ -256,7 +255,7 @@ function API.Players.notify(To: Player|string, From: string, Content: string, So
 	end
 end
 
-function API.Players.notifyWithAction(To: Player|string, Type, From: string, Content: string, Sound: number?)
+function API.Players.notifyWithAction(To: Player|string, Type, From: string, Content: string, Sound: number?): BindableEvent
 	local Bindable = Instance.new("BindableEvent")
 	local GUID = HttpService:GenerateGUID()
 	local attachment = {["From"] = From, ["Content"] = Content, ["Sound"] = Sound or module.Settings.UI.AlertSound}
@@ -272,7 +271,7 @@ function API.Players.notifyWithAction(To: Player|string, Type, From: string, Con
 	return Bindable
 end
 
-function API.Players.checkPermission(ClientId: number, Command: string)
+function API.Players.checkPermission(ClientId: number, Command: string): boolean
 	local clientAdminLevel = API.Players.getAdminLevel(ClientId)
 
 	if not clientAdminLevel or not module.PermissionTable[clientAdminLevel] then
@@ -283,7 +282,7 @@ function API.Players.checkPermission(ClientId: number, Command: string)
 		or module.PermissionTable[clientAdminLevel]["*"] == true)
 end
 
-function API.Players.getAdminStatus(ClientId: number)
+function API.Players.getAdminStatus(ClientId: number): boolean
 	for _, player in ipairs(Players:GetPlayers()) do
 		if player.UserId == ClientId and CollectionService:HasTag(player, "commander.admins") then
 			return true
@@ -373,25 +372,26 @@ function API.Players.getAdminLevel(ClientId: number)
 	return permissionGroupId
 end
 
-function API.Players.getAdmins()
+function API.Players.getAdmins(): ({{[number|string]: string}})
 	return module.Settings.Admins
 end
 
-function API.Players.getAvailableAdmins()
-	local availableAdmins = 0
-	for _, v in ipairs(Players:GetPlayers()) do
-		if API.Players.getAdminStatus(v.UserId) then
-			availableAdmins += 1
+function API.Players.getAvailableAdmins(): (number, {Player})
+	local availableAdmins = {}
+	for _, player in ipairs(Players:GetPlayers()) do
+		if API.Players.getAdminStatus(player.UserId) then
+			table.insert(availableAdmins, player)
 		end
 	end
 
-	return availableAdmins
+	return #availableAdmins, availableAdmins
 end
 
-function API.Players.getCharacter(Player: Player)
+function API.Players.getCharacter(Player: Player): Model?
 	if Player and Player.Character and Player.Character.PrimaryPart and Player.Character:FindFirstChildOfClass("Humanoid") then
 		return Player.Character
 	end
+	return nil
 end
 
 function API.Players.setTransparency(Character: Model, Value: number)
@@ -400,83 +400,6 @@ function API.Players.setTransparency(Character: Model, Value: number)
 			object.Transparency = Value
 		end
 	end
-end
-
-function API.Core.getDataStore(Name: string, Scope: string?)
-	local object = {}
-	object.__index = object
-	function object:get(Key: string)
-		return module.Services.Promise.new(function(Resolve, Reject)
-			local status, response = pcall(self._object.GetAsync, self._object, Key)
-
-			if status then
-				Resolve(response)
-			else
-				Reject(response)
-			end
-		end)
-	end
-
-	function object:set(Key: string, Data: any)
-		return module.Services.Promise.new(function(Resolve, Reject)
-			local status, response = pcall(self._object.SetAsync, self._object, Key, Data)
-
-			if status then
-				Resolve(response)
-			else
-				Reject(response)
-			end
-		end)
-	end
-
-	function object:increment(Key: string, Delta: number, UserIds: {number}, Options: Instance)
-		return module.Services.Promise.new(function(Resolve, Reject)
-			local status, response = pcall(self._object.IncrementAsync, self._object, Key, Delta, UserIds, Options)
-
-			if status then
-				Resolve(response)
-			else
-				Reject(response)
-			end
-		end)
-	end
-
-	function object:update(Key: string, Transformer)
-		return module.Services.Promise.new(function(Resolve, Reject)
-			local status, response = pcall(self._object.RemoveAsync, self._object, Key, Transformer)
-
-			if status then
-				Resolve(response)
-			else
-				Reject(response)
-			end
-		end)
-	end
-
-	function object:remove(Key: string)
-		return module.Services.Promise.new(function(Resolve, Reject)
-			local status, response = pcall(self._object.RemoveAsync, self._object, Key)
-
-			if status then
-				Resolve(response)
-			else
-				Reject(response)
-			end
-		end)
-	end
-
-	return module.Services.Promise.new(function(Resolve, Reject)
-		local status, response = pcall(module.Services.DataStoreService.GetDataStore, module.Services.DataStoreService, Name, Scope)
-		if status then
-			local newMeta = setmetatable({
-				_object = response
-			}, object)
-
-			Resolve(newMeta)
-		else
-			Reject(response)
-		end
-	end)
 end
 
 module = setmetatable({}, {

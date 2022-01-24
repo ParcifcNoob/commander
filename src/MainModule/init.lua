@@ -123,11 +123,10 @@ return function(Settings, CustomPackages, Stylesheets)
 		buildDisableTables()
 		systemPackages.API.PermissionTable = permissionTable
 		systemPackages.API.DisableTable = disableTable
-		systemPackages.Settings.Credits = systemPackages.GetCredits()
-		systemPackages.Settings.Version = {"1.4.3", "1.4.3 (Official Build)", "Lilium"}
+		systemPackages.Settings.Version = {"1.5.0", "1.5.0 (Official Build)", "Lilium"}
 
 		--@OVERRIDE
-		systemPackages.Settings.LatestVersion, systemPackages.Settings.IsHttpEnabled = systemPackages.GetRelease()
+		systemPackages.Settings.LatestVersion, systemPackages.Settings.IsHttpEnabled = "1.5.0", true
 		systemPackages.Settings.UI.AlertSound = systemPackages.Settings.UI.AlertSound or 6518811702
 		systemPackages.Settings.Misc.DataStoresKey = systemPackages.Settings.Misc.DataStoresKey or {}
 		if systemPackages.Settings.Misc.AutoCreatorAdmin and systemPackages.Settings.Misc.AutoCreatorAdminTo then
@@ -308,11 +307,6 @@ return function(Settings, CustomPackages, Stylesheets)
 			UI.ResetOnSpawn = false
 			UI.Scripts.Core.Disabled = false
 			UI.Parent = Client.PlayerGui
-			if systemPackages.Settings.LatestVersion and systemPackages.Settings.LatestVersion ~= systemPackages.Settings.Version[1] then
-				systemPackages.API.Players.hint(Client, "System", "This Commander version is outdated (latest avail: " .. systemPackages.Settings.LatestVersion .. ")", 5)
-			elseif not systemPackages.Settings.LatestVersion or not systemPackages.Settings.IsHttpEnabled then
-				systemPackages.API.Players.hint(Client, "System", "Commander can not check the latest version available" .. (not systemPackages.Settings.IsHttpEnabled and " (HTTP_NOT_ENABLED)" or ""), 5)
-			end
 		end
 	end
 

@@ -1,4 +1,4 @@
-local module, Page, Latte, Elements, Settings= {}, nil, nil, nil, nil
+local module, Page, Latte= {}, nil, nil
 
 module.prepare = function()
 	local Top = Instance.new("Frame")
@@ -81,7 +81,7 @@ module.prepare = function()
 
 	local Icon = Instance.new("ImageLabel")
 	Icon.BackgroundTransparency = 1
-	Icon.Image = "rbxassetid://6027381584"
+	Icon.Image = "http://www.roblox.com/asset/?id=8628700292"
 	Icon.Name = "Icon"
 	Icon.ScaleType = Enum.ScaleType.Fit
 	Icon.Size = UDim2.new(1, 0, 1, 0)
@@ -281,7 +281,7 @@ module.prepare = function()
 	Title3.Name = "Title"
 	Title3.AutomaticSize = Enum.AutomaticSize.XY
 	Title3.RichText = true
-	Title3.Text = "Commander is made possible with Latte and other open sourced softwares<br />learn more at our GitHub repository"
+	Title3.Text = "Made with love"
 	Title3.TextColor3 = Latte.Modules.Stylesheet.About.ParagraphColor
 	Title3.TextSize = 12
 	Title3.TextWrapped = false
@@ -289,23 +289,16 @@ module.prepare = function()
 end
 
 module.update = function()
-	Page.Top.Container.Text.Title.Text = "Commander <b>" .. Settings.Version[3] .. "</b>"
-	Page.Top.Container.Text.Subtitle.Text = "Version " .. Settings.Version[2]
-	if Settings.LatestVersion ~= false and Settings.LatestVersion ~= Settings.Version[1] then
-		Page.Update.Container.Text.Title.Text = "Outdated build"
-		Page.Update.Container.Text.Subtitle.Text = "Latest version: " .. Settings.LatestVersion .. " – Contact developer to update"
-		Page.Update.Container.Icon.Symbol.Image = "http://www.roblox.com/asset/?id=6521431858"
-	elseif Settings.LatestVersion ~= false then
-		Page.Update.Container.Text.Title.Text = "Up-to-date"
-		Page.Update.Container.Text.Subtitle.Text = "Latest version: " .. Settings.LatestVersion
-		Page.Update.Container.Icon.Symbol.Image = "http://www.roblox.com/asset/?id=6521420593"
-	end
+	Page.Update.Container.Icon.Symbol.Image = "rbxassetid://7733964719"
+	Page.Top.Container.Text.Title.Text = "This marks the end of Commander V1"
+	Page.Top.Container.Text.Subtitle.Text = "Thank you for using Commander 4 by Evo Incorp, see you in V2!"
+	Page.Update.Container.Text.Title.Text = "Commander 4 <b>Lilium</b>"
+	Page.Update.Container.Text.Subtitle.Text = "1.5.0 General Availability Release -- <b>EOL</b>"
 end
 
 module.setup = function()
-	module.Remotes.RemoteEvent.OnClientEvent:Connect(function(Type, Protocol, Attachment)
+	module.Remotes.RemoteEvent.OnClientEvent:Connect(function(Type)
 		if Type == "firstRun" then
-			Settings = Attachment
 			module.update()
 		end
 	end)
@@ -317,7 +310,6 @@ end
 
 module.init = function()
 	Latte = module.Latte
-	Elements = module.Elements
 end
 
 return module
