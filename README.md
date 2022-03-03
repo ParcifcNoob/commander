@@ -1,55 +1,40 @@
-# Commander
-
-[![CI](https://github.com/7kayoh/commander/actions/workflows/deploy.yml/badge.svg)](https://github.com/7kayoh/commander/actions/workflows/deploy.yml)
-
-I liked the idea of Commander, but I never liked how I coded it, with that I am hugely unmotivated to code for Commander, and more errors and typos started to come out. While I've archived this project previously, I feel like I can at least improve the codebase one more time, and call it as the final release, I guess? Honestly, really depends.
-
-Commander is an open sourced and community driven administration panel for your Roblox games' needs. Created and designed to be extremely flexible and customisable.
-
-![commander banner](https://cdn.discordapp.com/attachments/813583766039560206/831496945604100136/Banner.png)
-
-Visit our [documentation](https://commander-4.vercel.app) to learn more. If you have any questions about Commander, feel free to submit a new issue, or visit our Discord community at [here](https://7kayoh.github.io/commander-site/goto#discord).
-
-## Documentation
-
-If you want to learn more about Commander in the development side, visit our [documentation](https://commander-4.vercel.app), which includes API reference for packages and the UI library, tutorials on making packages, installing packages, installing themes and more. You can find the source code of the documentation [here](https://github.com/7kayoh/commander-site/tree/master/docs-src/v1)
-
-## Installing
-
-There's a few ways to install Commander. If you prefer working with the source code, consider using [Rojo](#Rojo). If you only want to install Commander, use the [loader](#Loader).
-
-### Rojo
-
-If you are syncing with Rojo, download the newest source code inside the Releases section, and then run the following command in your terminal application (Assume you are inside the folder of the source code)
-```
-rojo build -o "release.rbxlx"
-```
-And then, open `release.rbxlx` in Roblox Studio and start the Rojo server.
-```
-rojo serve
-```
-
-### Loader
-
-For your convenience, we've also released Commander as a loader, which allows Commander to be always up-to-date and easier to manage. You can find the download link [here](https://www.roblox.com/library/6648688759/). Place the loader inside `ServerScriptService` for high maintainability and maximum security.
-
-## Contributing
-
-Commander adheres the Contributor Covenant [code of conduct](./CODE_OF_CONDUCT.md). By contributing, you are expected to uphold this project. Report any inappropriate behavior in our Discord server.
-
-If you are creating your first time issue or pull request to this repository, consider reading our [contributing guidelines](./CONTRIBUTING.md).
-
-Before starting to contribute, please clone this repository with command `git clone https://github.com/va1kio/commander.git` and install Commander with the [Rojo](#Rojo) method, which will allow you to do testing.
-
-Once you have finished making changes to the codebase, please group changes and stage them one by one with a clear and descriptive commit message, and create a pull request.
-
-## Credits
-
-Commander is built with open sourced libraries and codes, a list of them can be found here:
-- [Promise](https://github.com/evaera/roblox-lua-promise)
-- [MockDataStore](https://github.com/buildthomas/MockDataStoreService)
-- [Matcher](https://github.com/rgieseke/textredux/blob/main/util/matcher.lua)
-- [Snapdragon](https://github.com/roblox-aurora/rbx-snapdragon)
-
-## License
-[MIT](./LICENSE)
+<div align="center">
+	<img width="70%" src="https://user-images.githubusercontent.com/40730127/156605871-e038e5e9-7cbb-4748-9457-7b5fd0e06e7d.png#gh-light-mode-only">
+	<img width="70%" src="https://user-images.githubusercontent.com/40730127/156605887-e74a9401-e267-494d-a47d-7ddcd6bbadc8.png#gh-dark-mode-only">
+	<h2 align="center">Commander, an open source administration panel</h2>
+</div>
+<div>
+	<p>
+		Commander is an open-source administration panel, designed to make moderation less painless meanwhile still being as powerful as an administration console.
+		Commander is built with a beautiful and efficient user interface, saving you a lot of time doing administration work and maintaining a high quality gameplay experience as well as a safe community for your players.
+	</p>
+</div>
+<div>
+	<h2>Quicklinks</h2>
+	<ul>
+		<li><a href="https://cmd.7kayoh.net/">Documentation</a></li>
+		<li><a href="https://discord.gg/7reXkurSWh">Discord Server</a></li>
+		<li><a href="https://www.roblox.com/library/6648688759/">Roblox Model</a></li>
+	</ul>
+</div>
+<div>
+	<h2>Installation</h2>
+	<p>Installing Commander can be done in multiple ways, we personally recommend installing the <a href="https://www.roblox.com/library/6648688759/">Roblox Model</a> unless you have a project manager like Rojo.</p>
+	<h3>Installing the model</h3>
+	<p>Get the <a href="https://www.roblox.com/library/6648688759/">Roblox Model</a> and put it inside your game's <code>ServerScriptService</code>, and <a href="https://cmd.7kayoh.net/home/config.html#configuration">read this page</a>.
+	<h3>Installing with source code</h3>
+	<p>Head to the <a href="https://github.com/frappedevs/Commander/releases/">releases</a> section and download the latest release's source code. Drag it into your <code>ServerScriptService</code> defined by your Rojo <code>project.json</code>, and <a href="https://cmd.7kayoh.net/home/config.html#configuration">read this page</a>.
+</div>
+<div>
+	<h2>License</h2>
+	<p>Commander is licensed under the <a href="https://github.com/frappedevs/Commander/blob/main/LICENSE">MIT license</a></p>
+</div>
+<div align="center">
+	<h2></h2>
+	<p>brought you by</p>
+	<img width="20%" href="https://github.com/frappedevs/" src="https://user-images.githubusercontent.com/40730127/156532963-0a1e8a94-ef89-48ef-94b9-1eaf54d8423b.png#gh-light-mode-only">
+	<img width="20%" href="https://github.com/frappedevs/" src="https://user-images.githubusercontent.com/40730127/156532952-f820fabb-8e45-4b72-870b-5cdab2431eed.png#gh-dark-mode-only">
+	<br>
+	<a href="https://github.com/frappedevs/">Frappé Development team</a>
+	<h2></h2>
+</div>
